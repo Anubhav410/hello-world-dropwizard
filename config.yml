@@ -1,0 +1,7 @@
+logging:
+  level: INFO
+  loggers:
+    local.tutorial: DEBUG
+
+template: Hello, %s!
+defaultName: Stranger
