@@ -1,7 +1,9 @@
 package base;
 
+import base.cli.CommandOne;
 import base.health.TemplateHealthCheck;
 import base.resources.HelloWorldResource;
+import base.tasks.TestTask;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -19,7 +21,7 @@ public class TutorialApplication extends Application<TutorialConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<TutorialConfiguration> bootstrap) {
-        // TODO: application initialization
+        bootstrap.addCommand(new CommandOne());
     }
 
     @Override
@@ -29,5 +31,9 @@ public class TutorialApplication extends Application<TutorialConfiguration> {
 
         TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
+
+
+        environment.admin().addTask(new TestTask());
+
     }
 }
