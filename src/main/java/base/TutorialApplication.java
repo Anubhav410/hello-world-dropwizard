@@ -1,9 +1,13 @@
 package base;
 
 import base.cli.CommandOne;
+import base.core.MessageCounter;
+import base.core.MyModule;
 import base.health.TemplateHealthCheck;
 import base.resources.HelloWorldResource;
 import base.tasks.TestTask;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -34,6 +38,12 @@ public class TutorialApplication extends Application<TutorialConfiguration> {
 
 
         environment.admin().addTask(new TestTask());
+
+
+        // lets test the bindings
+        Injector injector = Guice.createInjector(new MyModule());
+        MessageCounter instance = injector.getInstance(MessageCounter.class);
+        instance.printer();
 
     }
 }
